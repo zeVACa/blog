@@ -12,3 +12,19 @@
 body {
   background-color: #ebeef3;
 }
+
+* {
+  // outline: 1px solid red;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 960px;
+  margin: 0 auto;
+  padding: 0 10px;
+}

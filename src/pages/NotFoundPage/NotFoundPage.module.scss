@@ -1,0 +1,18 @@
+@import '../../variables';
+
+.wrapper {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notFoundCode404 {
+  color: lightgray;
+  font-size: 120px;
+}
+
+.homePageLink {
+  color: $color-link;
+  text-decoration: none;
+}
