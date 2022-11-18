@@ -9,9 +9,9 @@ function Header() {
         Realworld Blog
       </Link>
       <div className={styles.right}>
-        <button className={styles.createArticleButton} type='button'>
+        <Link className={styles.createArticleButton} to='/create-article'>
           Create article
-        </button>
+        </Link>
         <div className={styles.profile}>
           <span className={styles.profileName}>John Doe</span>
           <img src={avatar} alt='avatar' />

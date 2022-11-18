@@ -10,15 +10,11 @@
 }
 
 body {
-  background-color: #ebeef3;
-}
-
-* {
-  // outline: 1px solid red;
 }
 
 .App {
   min-height: 100vh;
+  background-color: #ebeef3;
   display: flex;
   flex-direction: column;
 }

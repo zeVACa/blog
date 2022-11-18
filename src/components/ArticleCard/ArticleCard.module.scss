@@ -36,7 +36,7 @@
   color: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 2px;
-  padding: 3px 5px;
+  padding: 1px 5px;
   margin-right: 8px;
   margin-bottom: 8px;
 }
@@ -50,18 +50,21 @@
   padding-top: 3px;
   font-size: 18px;
   color: rgba(0, 0, 0, 0.85);
+  text-align: right;
 }
 
 .date {
   color: rgba(0, 0, 0, 0.5);
   font-size: 12px;
   line-height: 22px;
+  text-align: right;
 }
 
 .userAvatar {
   width: 46px;
   height: 46px;
   margin-left: 12px;
+  border-radius: 50%;
 }
 
 .description {

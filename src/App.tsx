@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import ArticlesPage from './pages/ArticlesPage';
+import CreateArticlePage from './pages/CreateArticlePage';
 import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<ArticlesPage />} />
+        <Route path='/create-article' element={<CreateArticlePage />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </div>
