@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { IArticles } from '../types.d';
+import { IArticle, IArticles } from '../types.d';
 
 const articlesApi = createApi({
   reducerPath: 'articles',
@@ -9,6 +9,11 @@ const articlesApi = createApi({
       query: ({ page, limit }) => ({
         url: '/articles',
         params: { offset: (page - 1) * limit, limit },
+      }),
+    }),
+    getArticle: build.query<{ article: IArticle }, { slug: string | undefined }>({
+      query: ({ slug }) => ({
+        url: `articles/${slug}`,
       }),
     }),
   }),

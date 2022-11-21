@@ -5,39 +5,45 @@ import ArticleCard from '../../components/ArticleCard';
 import 'antd/dist/antd.min.css';
 import articlesApi from '../../services/articlesApi';
 import { IArticle } from '../../types.d';
-
-/* eslint-disable */
+import Spiner from '../../components/Spiner/Spiner';
 
 function ArticlesPage() {
   const [page, setPage] = useState(1);
   const articlesLimit = 5;
-  const { data, isLoading } = articlesApi.useGetArticlesQuery({ page, limit: articlesLimit });
-
-  console.log(page);
-  console.log('data', data?.articles);
+  const { data, isLoading, isError } = articlesApi.useGetArticlesQuery({
+    page,
+    limit: articlesLimit,
+  });
 
   return (
     <div className={styles.wrapper}>
       <div className='container'>
+        {isError && <h3>При загрузке данных произошла ошибка. Пожалуйста, обновите страницу</h3>}
         {isLoading ? (
-          <div>loading</div>
+          <Spiner />
         ) : (
           <>
-            <div>
-              {data?.articles.map((article: IArticle) => (
-                <ArticleCard
-                  article={article}
-                  key={`${article.author} ${article.updatedAt} ${article.slug}`}
+            {data?.articles.map((article: IArticle) => (
+              <ArticleCard
+                article={article}
+                key={`${article.author} ${article.updatedAt} ${
+                  article.slug
+                } ${article.tagList.join()}`}
+              />
+            ))}
+            {data?.articles?.length && (
+              <div className={styles.flexCenter}>
+                <Pagination
+                  pageSize={articlesLimit}
+                  current={page}
+                  showSizeChanger={false}
+                  total={data?.articlesCount}
+                  onChange={(newPageNumber) => {
+                    setPage(newPageNumber);
+                  }}
                 />
-              ))}
-            </div>
-            <Pagination
-              pageSize={articlesLimit}
-              current={page}
-              showSizeChanger={false}
-              total={data?.articlesCount}
-              onChange={(page) => setPage(page)}
-            />
+              </div>
+            )}
           </>
         )}
       </div>

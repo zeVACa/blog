@@ -1,5 +1,9 @@
 function CreateArticlePage() {
-  return <div>CreateArticlePage</div>;
+  return (
+    <div>
+      <div className='container'>hello</div>
+    </div>
+  );
 }
 
 export default CreateArticlePage;
