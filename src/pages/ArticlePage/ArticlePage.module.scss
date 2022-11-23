@@ -1,8 +1,11 @@
+@import '../../variables.scss';
+
 .article {
   padding: 17px 19px;
   background-color: #fff;
   margin-top: 24px;
   border-radius: 5px;
+  box-shadow: $card-shadow;
 }
 
 .shortDescription {

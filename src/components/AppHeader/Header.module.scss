@@ -70,3 +70,25 @@
   color: lighten($color: rgba(0, 0, 0, 0.75), $amount: 40);
   border-color: lighten($color: rgba(0, 0, 0, 0.75), $amount: 40);
 }
+
+.signInButton {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.signInButton:hover {
+  color: lighten($color: rgba(0, 0, 0, 0.75), $amount: 40);
+}
+
+.signUpButton {
+  font-size: 18px;
+  color: $color-success;
+  border: 1px solid $color-success;
+  padding: 6px 18px;
+  border-radius: 5px;
+  margin-left: 15px;
+}
+
+.signUpButton:hover {
+  color: lighten($color: $color-success, $amount: 20);
+}

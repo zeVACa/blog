@@ -1,0 +1,64 @@
+@import '../../variables.scss';
+
+.flexCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.form {
+  max-width: 384px;
+  flex-grow: 1;
+  background: #fff;
+  margin-top: 59px;
+  padding: 48px 32px;
+  border-radius: 5px;
+  box-shadow: $card-shadow;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 9px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 2px;
+  margin-top: 12px;
+}
+
+.agrement {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 8px;
+  margin: 21px 0;
+  border-top: 1px solid #e8e8e8;
+}
+
+.checkbox {
+  margin-top: 5px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.submitButton {
+  background: $color-primary;
+  border: none;
+  font-size: 16px;
+  color: #fff;
+  width: 100%;
+  border-radius: 5px;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background: darken($color: $color-primary, $amount: 5);
+}
+
+.alreadyHaveAccount {
+  color: #8c8c8c;
+  text-align: center;
+  margin-top: 8px;
+}
