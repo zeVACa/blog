@@ -39,7 +39,7 @@ function RegisterPage() {
         </div>
         <SubmitButton title='Create' />
         <p className={styles.alreadyHaveAccount}>
-          Already have an account? <Link to='/login'>Sign In</Link>.
+          Already have an account? <Link to='/sign-in'>Sign In</Link>.
         </p>
       </form>
     </div>

@@ -22,7 +22,7 @@ function LoginPage() {
           <SubmitButton title='Log in' />
         </div>
         <p className={styles.dontHaveAccount}>
-          Don’t have an account? <Link to='/register'>Sign Up</Link>.
+          Don’t have an account? <Link to='/sign-up'>Sign Up</Link>.
         </p>
       </form>
     </div>

@@ -4,7 +4,7 @@ import styles from './Header.module.scss';
 import avatar from '../../images/avatar.png';
 
 function Header() {
-  const [isLogedIn] = useState<boolean>(false);
+  const [isLogedIn] = useState<boolean>(true);
   return (
     <div className={styles.header}>
       <Link to='/' className={styles.brand}>
@@ -17,8 +17,10 @@ function Header() {
               Create article
             </Link>
             <div className={styles.profile}>
-              <span className={styles.profileName}>John Doe</span>
-              <img src={avatar} alt='avatar' />
+              <Link className={styles.profileName} to='/profile'>
+                John Doe
+                <img src={avatar} alt='avatar' className={styles.avatar} />
+              </Link>
             </div>
             <button className={styles.logOutButton} type='button'>
               Log Out
@@ -26,10 +28,10 @@ function Header() {
           </>
         ) : (
           <>
-            <Link to='/login' className={styles.signInButton}>
+            <Link to='/sign-in' className={styles.signInButton}>
               Sign In
             </Link>
-            <Link to='/register' className={styles.signUpButton}>
+            <Link to='/sign-up' className={styles.signUpButton}>
               Sign Up
             </Link>
           </>

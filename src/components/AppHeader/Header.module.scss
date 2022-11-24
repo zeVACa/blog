@@ -37,7 +37,16 @@
 }
 
 .profileName {
-  margin-right: 13px;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.profileName:hover {
+  color: lighten($color: rgba(0, 0, 0, 0.85), $amount: 40);
+}
+
+.avatar {
+  margin-left: 13px;
 }
 
 .createArticleButton {
