@@ -2,6 +2,7 @@
 import { Input } from 'antd';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
+import SubmitButton from '../../components/SubmitButton';
 import styles from './RegisterPage.module.scss';
 
 function RegisterPage() {
@@ -36,9 +37,7 @@ function RegisterPage() {
             I agree to the processing of my personal information
           </label>
         </div>
-        <button type='submit' className={styles.submitButton}>
-          Create
-        </button>
+        <SubmitButton title='Create' />
         <p className={styles.alreadyHaveAccount}>
           Already have an account? <Link to='/login'>Sign In</Link>.
         </p>

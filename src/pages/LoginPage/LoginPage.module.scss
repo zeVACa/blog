@@ -28,22 +28,10 @@
   margin-top: 12px;
 }
 
-.agrement {
-  display: flex;
-  align-items: flex-start;
-  padding-top: 8px;
-  margin: 21px 0;
-  border-top: 1px solid #e8e8e8;
+.submitButton {
+  margin: 21px 0 8px;
 }
 
-.checkbox {
-  margin-top: 5px;
-  margin-right: 10px;
-  display: inline-block;
-}
-
-.alreadyHaveAccount {
-  color: #8c8c8c;
+.dontHaveAccount {
   text-align: center;
-  margin-top: 8px;
 }
