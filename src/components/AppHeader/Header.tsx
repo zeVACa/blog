@@ -1,10 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styles from './Header.module.scss';
 import defaultAvatar from '../../images/avatar.png';
-import { useAppSelector } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { logout } from '../../redux/reducers/userSlice';
 
 function Header() {
   const { username, image } = useAppSelector((select) => select.user);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   return (
     <div className={styles.header}>
@@ -25,7 +29,15 @@ function Header() {
                 )}
               </Link>
             </div>
-            <button className={styles.logOutButton} type='button'>
+            <button
+              className={styles.logOutButton}
+              type='button'
+              onClick={() => {
+                dispatch(logout());
+                navigate('/');
+                toast.info('You have logged out successfully');
+              }}
+            >
               Log Out
             </button>
           </>

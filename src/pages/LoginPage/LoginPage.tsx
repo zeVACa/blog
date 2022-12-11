@@ -26,7 +26,6 @@ function LoginPage() {
   const [loginRequest, { data, isSuccess, error: authError }] = authApi.useLoginMutation();
 
   useEffect(() => {
-    console.log('data', data);
     if (isSuccess && data) {
       const { username, email, token, image } = data.user;
 
@@ -38,16 +37,13 @@ function LoginPage() {
 
   useEffect(() => {
     if (authError) {
-      console.log('authError', authError);
       toast.error('Email or password is invalid!');
     }
   }, [authError]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmitHandle = (submitedData: any) => {
-    console.log('submitedData', submitedData);
     loginRequest({ user: { email: submitedData.email, password: submitedData.password } });
-    // reset();
   };
 
   return (
