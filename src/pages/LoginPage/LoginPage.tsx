@@ -12,6 +12,7 @@ import styles from './LoginPage.module.scss';
 import authApi from '../../services/authApi';
 import { useAppDispatch } from '../../redux/store';
 import { login } from '../../redux/reducers/userSlice';
+import '../../index.scss';
 
 function LoginPage() {
   const {
@@ -50,11 +51,11 @@ function LoginPage() {
     <div className={classNames('container', styles.flexCenter)}>
       <form action='' className={styles.form} onSubmit={handleSubmit(onSubmitHandle)}>
         <h4 className={styles.title}>Sign In</h4>
-        <label className={styles.label}>
+        <label className='form-label'>
           Email address
           <input
             type='text'
-            className={styles.input}
+            className={classNames({ 'form-input': true, 'form-input--error': errors.email })}
             placeholder='Email address'
             {...register('email', {
               required: 'Email is required',
@@ -66,20 +67,22 @@ function LoginPage() {
             })}
           />
         </label>
-        {errors?.email && <p>{errors.email.message?.toString()}</p>}
-        <label className={classNames(styles.label, styles.password)}>
+        {errors?.email && <p className='form-error-message'>{errors.email.message?.toString()}</p>}
+        <label className='form-label'>
           Password
           <input
             type='password'
-            className={styles.input}
+            className={classNames({ 'form-input': true, 'form-input--error': errors.password })}
             placeholder='Password'
             {...register('password', {
               required: 'Password is required',
-              minLength: { value: 4, message: 'Min 4 chars' },
+              minLength: { value: 6, message: 'Min 6 characters' },
             })}
           />
         </label>
-        {errors?.password && <p>{errors.password.message?.toString()}</p>}
+        {errors?.password && (
+          <p className='form-error-message'>{errors.password.message?.toString()}</p>
+        )}
         <div className={styles.submitButton}>
           <SubmitButton title='Log in' />
         </div>
