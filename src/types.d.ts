@@ -1,7 +1,8 @@
 export interface IUser {
-  name: string;
-  surname: string;
-  email: string;
+  username: null | string;
+  email: null | string;
+  token: null | string;
+  image: null | string;
 }
 
 export interface IArticle {

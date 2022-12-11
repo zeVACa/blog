@@ -27,7 +27,7 @@ function ArticlePage() {
           />
           <p className={styles.shortDescription}>{article.description}</p>
           <div className={styles.fullDescriptionBody}>
-            <ReactMarkdown>{article.body}</ReactMarkdown>
+            <ReactMarkdown className={styles.body}>{article.body}</ReactMarkdown>
           </div>
         </div>
       )}

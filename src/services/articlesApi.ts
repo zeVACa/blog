@@ -1,9 +1,7 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { IArticle, IArticles } from '../types.d';
+import baseApi from './baseApi';
 
-const articlesApi = createApi({
-  reducerPath: 'articles',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://blog.kata.academy/api' }),
+const articlesApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getArticles: build.query<IArticles, { page: number; limit: number }>({
       query: ({ page, limit }) => ({

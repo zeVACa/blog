@@ -1,25 +1,28 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import styles from './Header.module.scss';
-import avatar from '../../images/avatar.png';
+import defaultAvatar from '../../images/avatar.png';
+import { useAppSelector } from '../../redux/store';
 
 function Header() {
-  const [isLogedIn] = useState<boolean>(true);
+  const { username, image } = useAppSelector((select) => select.user);
+
   return (
     <div className={styles.header}>
       <Link to='/' className={styles.brand}>
         Realworld Blog
       </Link>
       <div className={styles.right}>
-        {isLogedIn ? (
+        {username ? (
           <>
             <Link className={styles.createArticleButton} to='/create-article'>
               Create article
             </Link>
             <div className={styles.profile}>
               <Link className={styles.profileName} to='/profile'>
-                John Doe
-                <img src={avatar} alt='avatar' className={styles.avatar} />
+                {username}
+                {image && (
+                  <img src={image || defaultAvatar} alt='avatar' className={styles.avatar} />
+                )}
               </Link>
             </div>
             <button className={styles.logOutButton} type='button'>

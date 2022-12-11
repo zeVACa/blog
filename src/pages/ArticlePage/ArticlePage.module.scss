@@ -17,3 +17,8 @@
 .fullDescriptionBody ol {
   padding-left: 30px;
 }
+
+.body,
+.shortDescription {
+  overflow-wrap: anywhere;
+}
