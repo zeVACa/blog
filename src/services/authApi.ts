@@ -1,4 +1,5 @@
 // import { IUser } from '../types.d';
+import { getTokenFromLocalStorage } from '../utils/tokenApi';
 import baseApi from './baseApi';
 
 const authApi = baseApi.injectEndpoints({
@@ -30,6 +31,15 @@ const authApi = baseApi.injectEndpoints({
         body,
       }),
       invalidatesTags: ['User'],
+    }),
+    getUser: build.query<
+      { user: { username: string; email: string; token: string; image: string } },
+      null
+    >({
+      query: () => ({
+        url: '/user',
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
+      }),
     }),
   }),
 });

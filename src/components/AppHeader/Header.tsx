@@ -6,7 +6,7 @@ import { logout } from '../../redux/reducers/userSlice';
 import { removeTokenFromLocalStorage } from '../../utils/tokenApi';
 
 function Header() {
-  const { username, image } = useAppSelector((select) => select.user);
+  const { username, token, image } = useAppSelector((select) => select.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ function Header() {
         Realworld Blog
       </Link>
       <div className={styles.right}>
-        {username ? (
+        {token ? (
           <>
             <Link className={styles.createArticleButton} to='/create-article'>
               Create article

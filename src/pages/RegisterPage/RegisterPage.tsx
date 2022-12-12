@@ -32,8 +32,6 @@ function RegisterPage() {
     data: { errors: { username?: string; email?: string } };
   };
 
-  console.log(errorResponse);
-
   useEffect(() => {
     if (isSuccess && data) {
       const { username, email, token } = data.user;

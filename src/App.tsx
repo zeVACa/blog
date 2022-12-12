@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Header from './components/AppHeader';
@@ -10,8 +11,26 @@ import ProfilePage from './pages/ProfilePage';
 import RegisterPage from './pages/RegisterPage';
 import 'react-toastify/dist/ReactToastify.min.css';
 import PrivateRoutes from './utils/PrivateRoutes';
+import authApi from './services/authApi';
+import { getTokenFromLocalStorage } from './utils/tokenApi';
+import { useAppDispatch } from './redux/store';
+import { login } from './redux/reducers/userSlice';
 
 function App() {
+  const [getUser] = authApi.useLazyGetUserQuery();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (getTokenFromLocalStorage()) {
+      getUser(null, true)
+        .unwrap()
+        .then((data) => {
+          const { username, email, token, image } = data.user;
+          if (data) dispatch(login({ username, email, token, image: image || null }));
+        });
+    }
+  }, []);
+
   return (
     <div className='App'>
       <ToastContainer

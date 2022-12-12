@@ -14,4 +14,6 @@ export const isTokenValid = (): boolean => {
   return token ? Boolean(!isTokenExpired(token)) : false;
 };
 
+export const getTokenFromLocalStorage = () => localStorage.getItem('token');
+
 export const removeTokenFromLocalStorage = () => localStorage.removeItem('token');

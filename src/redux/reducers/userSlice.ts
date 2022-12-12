@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser } from '../../types.d';
+import { getTokenFromLocalStorage } from '../../utils/tokenApi';
 
 const initialState: IUser = {
   username: null,
   email: null,
-  token: null,
+  token: getTokenFromLocalStorage() ? getTokenFromLocalStorage() : null,
   image: null,
 };
 
