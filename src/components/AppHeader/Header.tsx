@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import styles from './Header.module.scss';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { logout } from '../../redux/reducers/userSlice';
+import { removeTokenFromLocalStorage } from '../../utils/tokenApi';
 
 function Header() {
   const { username, image } = useAppSelector((select) => select.user);
@@ -35,6 +36,7 @@ function Header() {
               type='button'
               onClick={() => {
                 dispatch(logout());
+                removeTokenFromLocalStorage();
                 navigate('/');
                 toast.info('You have logged out successfully');
               }}

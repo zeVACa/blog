@@ -9,6 +9,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import ProfilePage from './pages/ProfilePage';
 import RegisterPage from './pages/RegisterPage';
 import 'react-toastify/dist/ReactToastify.min.css';
+import PrivateRoutes from './utils/PrivateRoutes';
 
 function App() {
   return (
@@ -27,13 +28,15 @@ function App() {
       />
       <Header />
       <Routes>
+        <Route element={<PrivateRoutes />}>
+          <Route path='/create-article' element={<CreateArticlePage />} />
+          <Route path='/profile' element={<ProfilePage />} />
+        </Route>
         <Route path='/' element={<ArticlesPage />} />
         <Route path='/articles/' element={<ArticlesPage />} />
         <Route path='/articles/:id' element={<ArticlePage />} />
-        <Route path='/create-article' element={<CreateArticlePage />} />
         <Route path='/sign-in' element={<LoginPage />} />
         <Route path='/sign-up' element={<RegisterPage />} />
-        <Route path='/profile' element={<ProfilePage />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </div>

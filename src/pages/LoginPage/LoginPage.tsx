@@ -13,6 +13,7 @@ import authApi from '../../services/authApi';
 import { useAppDispatch } from '../../redux/store';
 import { login } from '../../redux/reducers/userSlice';
 import '../../index.scss';
+import { setTokenToLocalStorage } from '../../utils/tokenApi';
 
 function LoginPage() {
   const {
@@ -32,6 +33,7 @@ function LoginPage() {
 
       toast.success('You have logged in successfully');
       dispatch(login({ username, email, token, image }));
+      setTokenToLocalStorage(token);
       navigate('/');
     }
   }, [isSuccess]);
