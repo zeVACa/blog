@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styles from './Header.module.scss';
-import defaultAvatar from '../../images/avatar.png';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { logout } from '../../redux/reducers/userSlice';
 
@@ -24,9 +23,11 @@ function Header() {
             <div className={styles.profile}>
               <Link className={styles.profileName} to='/profile'>
                 {username}
-                {image && (
-                  <img src={image || defaultAvatar} alt='avatar' className={styles.avatar} />
-                )}
+                <img
+                  src={image || 'https://static.productionready.io/images/smiley-cyrus.jpg'}
+                  alt='avatar'
+                  className={styles.avatar}
+                />
               </Link>
             </div>
             <button

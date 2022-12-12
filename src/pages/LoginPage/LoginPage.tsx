@@ -44,7 +44,8 @@ function LoginPage() {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmitHandle = (submitedData: any) => {
-    loginRequest({ user: { email: submitedData.email, password: submitedData.password } });
+    const { email, password } = submitedData;
+    loginRequest({ user: { email, password } });
   };
 
   return (
@@ -76,7 +77,7 @@ function LoginPage() {
             placeholder='Password'
             {...register('password', {
               required: 'Password is required',
-              minLength: { value: 6, message: 'Min 6 characters' },
+              minLength: { value: 6, message: 'Your password needs to be at least 6 characters.' },
             })}
           />
         </label>

@@ -2,7 +2,7 @@ export interface IUser {
   username: null | string;
   email: null | string;
   token: null | string;
-  image: null | string;
+  image?: null | string;
 }
 
 export interface IArticle {
