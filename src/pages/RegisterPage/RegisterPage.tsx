@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import SubmitButton from '../../components/SubmitButton';
 import { login } from '../../redux/reducers/userSlice';
 import { useAppDispatch } from '../../redux/store';
-import authApi from '../../services/authApi';
+import userApi from '../../services/userApi';
 import styles from './RegisterPage.module.scss';
 import '../../index.scss';
 
@@ -25,7 +25,7 @@ function RegisterPage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [registerRequest, { data, isSuccess, error: authError }] = authApi.useRegisterMutation();
+  const [registerRequest, { data, isSuccess, error: authError }] = userApi.useRegisterMutation();
 
   const errorResponse = authError as {
     status: number;

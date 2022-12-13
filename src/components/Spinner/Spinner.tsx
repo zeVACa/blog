@@ -1,7 +1,7 @@
 import { ClipLoader } from 'react-spinners';
-import styles from './Spiner.module.scss';
+import styles from './Spinner.module.scss';
 
-function Spiner() {
+function Spinner() {
   return (
     <div className={styles.wrapper}>
       <ClipLoader />
@@ -9,4 +9,4 @@ function Spiner() {
   );
 }
 
-export default Spiner;
+export default Spinner;

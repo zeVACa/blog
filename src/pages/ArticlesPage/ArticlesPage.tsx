@@ -5,7 +5,7 @@ import ArticleCard from '../../components/ArticleCard';
 import 'antd/dist/antd.min.css';
 import articlesApi from '../../services/articlesApi';
 import { IArticle } from '../../types.d';
-import Spiner from '../../components/Spiner/Spiner';
+import Spinner from '../../components/Spinner/Spinner';
 
 function ArticlesPage() {
   const [page, setPage] = useState(1);
@@ -20,7 +20,7 @@ function ArticlesPage() {
       <div className='container'>
         {isError && <h3>При загрузке данных произошла ошибка. Пожалуйста, обновите страницу</h3>}
         {isLoading ? (
-          <Spiner />
+          <Spinner />
         ) : (
           <>
             {data?.articles.map((article: IArticle) => (

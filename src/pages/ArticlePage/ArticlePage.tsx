@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 
 import styles from './ArticlePage.module.scss';
 import ArticleHeader from '../../components/ArticleHeader';
-import Spiner from '../../components/Spiner';
+import Spinner from '../../components/Spinner';
 import articlesApi from '../../services/articlesApi';
 
 function ArticlePage() {
@@ -14,7 +14,7 @@ function ArticlePage() {
 
   return (
     <div className='container'>
-      {isLoading && <Spiner />}
+      {isLoading && <Spinner />}
       {!isLoading && article && (
         <div className={styles.article}>
           <ArticleHeader

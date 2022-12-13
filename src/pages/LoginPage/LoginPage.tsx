@@ -9,7 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SubmitButton from '../../components/SubmitButton';
 import styles from './LoginPage.module.scss';
-import authApi from '../../services/authApi';
+import userApi from '../../services/userApi';
 import { useAppDispatch } from '../../redux/store';
 import { login } from '../../redux/reducers/userSlice';
 import '../../index.scss';
@@ -25,7 +25,7 @@ function LoginPage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [loginRequest, { data, isSuccess, error: authError }] = authApi.useLoginMutation();
+  const [loginRequest, { data, isSuccess, error: authError }] = userApi.useLoginMutation();
 
   useEffect(() => {
     if (isSuccess && data) {

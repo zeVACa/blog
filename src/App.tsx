@@ -11,13 +11,13 @@ import ProfilePage from './pages/ProfilePage';
 import RegisterPage from './pages/RegisterPage';
 import 'react-toastify/dist/ReactToastify.min.css';
 import PrivateRoutes from './utils/PrivateRoutes';
-import authApi from './services/authApi';
+import userApi from './services/userApi';
 import { getTokenFromLocalStorage } from './utils/tokenApi';
 import { useAppDispatch } from './redux/store';
 import { login } from './redux/reducers/userSlice';
 
 function App() {
-  const [getUser] = authApi.useLazyGetUserQuery();
+  const [getUser] = userApi.useLazyGetUserQuery();
   const dispatch = useAppDispatch();
 
   useEffect(() => {

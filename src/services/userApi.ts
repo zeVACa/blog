@@ -2,7 +2,7 @@
 import { getTokenFromLocalStorage } from '../utils/tokenApi';
 import baseApi from './baseApi';
 
-const authApi = baseApi.injectEndpoints({
+const userApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     login: build.mutation<
       { user: { username: string; email: string; token: string; image: string } },
@@ -41,7 +41,12 @@ const authApi = baseApi.injectEndpoints({
         headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
       }),
     }),
+    editUser: build.mutation<void, void>({
+      query: () => ({
+        url: '/user',
+      }),
+    }),
   }),
 });
 
-export default authApi;
+export default userApi;

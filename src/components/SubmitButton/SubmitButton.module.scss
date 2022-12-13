@@ -15,3 +15,12 @@
 .submitButton:hover {
   background: darken($color: $color-primary, $amount: 5);
 }
+
+.submitButton--disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.submitButton--disabled:hover {
+  background-color: #ccc;
+}
