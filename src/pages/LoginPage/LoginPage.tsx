@@ -20,7 +20,7 @@ function LoginPage() {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({ mode: 'onBlur' });
+  } = useForm({ mode: 'all' });
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

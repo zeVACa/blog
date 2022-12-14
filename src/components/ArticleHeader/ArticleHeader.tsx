@@ -16,7 +16,7 @@ interface IProps {
 }
 
 function ArticleHeader({ title, tagList, authorImage, slug, authorUsername, createdAt }: IProps) {
-  const [hasErrorOnImageLoad, setHasErrorOnImageLoad] = useState(false);
+  const [hasErrorOnImageLoad, setHasErrorOnImageLoad] = useState<boolean>(false);
 
   return (
     <div className={styles.header}>

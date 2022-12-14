@@ -36,3 +36,11 @@
   color: $color-primary;
   font-size: 16px;
 }
+
+.imageLoadingErrorMessage {
+  color: $color-error;
+}
+
+.imageLoadingSuccessMessage {
+  color: $color-success;
+}

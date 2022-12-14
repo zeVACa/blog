@@ -41,9 +41,14 @@ const userApi = baseApi.injectEndpoints({
         headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
       }),
     }),
-    editUser: build.mutation<void, void>({
-      query: () => ({
+    editUser: build.mutation<
+      { user: { username: string; email: string; token: string; image: string } },
+      { user: { username: string; email: string; image: string } }
+    >({
+      query: (body) => ({
         url: '/user',
+        method: 'PUT',
+        body,
       }),
     }),
   }),

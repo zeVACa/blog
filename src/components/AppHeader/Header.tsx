@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styles from './Header.module.scss';
@@ -9,6 +10,8 @@ function Header() {
   const { username, token, image } = useAppSelector((select) => select.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const [hasErrorOnImageLoad, setHasErrorOnImageLoad] = useState(false);
 
   return (
     <div className={styles.header}>
@@ -25,7 +28,15 @@ function Header() {
               <Link className={styles.profileName} to='/profile'>
                 {username}
                 <img
-                  src={image || 'https://static.productionready.io/images/smiley-cyrus.jpg'}
+                  // src={image || 'https://static.productionready.io/images/smiley-cyrus.jpg'}
+                  src={
+                    !hasErrorOnImageLoad && image
+                      ? image
+                      : 'https://static.productionready.io/images/smiley-cyrus.jpg'
+                  }
+                  onError={() => {
+                    setHasErrorOnImageLoad(true);
+                  }}
                   alt='avatar'
                   className={styles.avatar}
                 />

@@ -8,7 +8,7 @@ import styles from './ProfilePage.module.scss';
 import '../../index.scss';
 import { useAppSelector } from '../../redux/store';
 import { useForm } from 'react-hook-form';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 
 function ProfilePage() {
   const { username, email, image } = useAppSelector((selector) => selector.user);
@@ -29,15 +29,34 @@ function ProfilePage() {
     },
   });
 
+  const [hasErrorOnImageLoad, setHasErrorOnImageLoad] = useState<boolean>(false);
+  const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
+
   useEffect(() => {
-    if (username && email && image)
+    if (username && email)
       reset({
         username,
         email,
         password: '',
-        avatar: image,
+        avatar: image || '',
       });
   }, [username, email, image]);
+
+  const isFormDataEqualsStoreUserData =
+    watch().username === username &&
+    watch().email === email &&
+    (watch().avatar === image || (watch().avatar === '' && image === null)) &&
+    watch().password === '';
+
+  const avatarRegister = {
+    ...register('avatar', {
+      pattern: {
+        value:
+          /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/,
+        message: 'Incorrect address',
+      },
+    }),
+  };
 
   const onSubmitHandle = () => {};
 
@@ -51,6 +70,10 @@ function ProfilePage() {
             placeholder='Username'
             {...register('username', {
               required: 'Username is required',
+              pattern: {
+                value: /^[a-z][a-z0-9]*$/,
+                message: 'You can only use lowercase English letters and numbers',
+              },
               minLength: {
                 value: 3,
                 message: 'Your username needs to contain minimum 3 characters.',
@@ -109,36 +132,59 @@ function ProfilePage() {
           Avatar image (url)
           <input
             placeholder='Avatar image'
-            {...register('avatar', {
-              pattern: {
-                value:
-                  /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/,
-                message: 'Incorrect address',
-              },
-            })}
+            {...avatarRegister}
+            onChange={(e) => {
+              avatarRegister.onChange(e);
+              setIsImageLoading(true);
+            }}
             className={classNames({ 'form-input': true, 'form-input--error': errors.avatar })}
-            defaultValue={image ? image : ''}
+            defaultValue={image || ''}
           />
         </label>
         {errors?.avatar && (
           <p className='form-error-message'>{errors.avatar?.message?.toString()}</p>
         )}
-        {(!isValid ||
-          (watch().username === username &&
-            watch().email === email &&
-            watch().avatar === image &&
-            watch().password === '')) && (
+        {isFormDataEqualsStoreUserData && (
           <p className={styles.editYourDataMessage}>Edit your data to save changes</p>
         )}
+        {watch().avatar === '' && image && (
+          <p className={styles.editYourDataMessage}>
+            If you make the avatar field empty, then your current image will be deleted and replaced
+            with a default image
+          </p>
+        )}
+        {watch().avatar && (
+          <img
+            src={watch().avatar}
+            onLoad={() => {
+              setIsImageLoading(false);
+              setHasErrorOnImageLoad(false);
+            }}
+            onError={() => {
+              setIsImageLoading(false);
+              setHasErrorOnImageLoad(true);
+            }}
+            className='sr-only'
+          />
+        )}
+        {!errors?.avatar &&
+          hasErrorOnImageLoad &&
+          !isFormDataEqualsStoreUserData &&
+          !isImageLoading && (
+            <p className={styles.imageLoadingErrorMessage}>
+              An error occurred while loading the image! Your link may point to a non-existent
+              image. Please fill in another image URL
+            </p>
+          )}
+        {!hasErrorOnImageLoad && !isFormDataEqualsStoreUserData && !isImageLoading && (
+          <p className={styles.imageLoadingSuccessMessage}>Image URL is correct!</p>
+        )}
+        {isImageLoading && !hasErrorOnImageLoad && <p>Image loading...</p>}
         <div className={styles.submitButton}>
           <SubmitButton
             title='Save'
             disabled={
-              !isValid ||
-              (watch().username === username &&
-                watch().email === email &&
-                watch().avatar === image &&
-                watch().password === '')
+              !isValid || isFormDataEqualsStoreUserData || hasErrorOnImageLoad || isImageLoading
             }
           />
         </div>

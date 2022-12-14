@@ -20,7 +20,7 @@ function RegisterPage() {
     formState: { errors },
     handleSubmit,
     getValues,
-  } = useForm({ mode: 'onBlur' });
+  } = useForm({ mode: 'all' });
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -68,6 +68,10 @@ function RegisterPage() {
             className={classNames({ 'form-input': true, 'form-input--error': errors.username })}
             {...register('username', {
               required: 'Username is required',
+              pattern: {
+                value: /^[a-z][a-z0-9]*$/,
+                message: 'You can only use lowercase English letters and numbers',
+              },
               minLength: {
                 value: 3,
                 message: 'Your username needs to contain minimum 3 characters.',
