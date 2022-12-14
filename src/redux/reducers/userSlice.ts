@@ -13,7 +13,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    login(state, action: PayloadAction<IUser>) {
+    setUser(state, action: PayloadAction<IUser>) {
       state.username = action.payload.username;
       state.email = action.payload.email;
       state.image = action.payload.image;
@@ -28,5 +28,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { setUser, logout } = userSlice.actions;
 export default userSlice.reducer;

@@ -1,14 +1,17 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-/* eslint-disable */
-
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import SubmitButton from '../../components/SubmitButton';
 import styles from './ProfilePage.module.scss';
 import '../../index.scss';
-import { useAppSelector } from '../../redux/store';
-import { useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import userApi from '../../services/userApi';
+import { setUser } from '../../redux/reducers/userSlice';
 
 function ProfilePage() {
   const { username, email, image } = useAppSelector((selector) => selector.user);
@@ -32,6 +35,14 @@ function ProfilePage() {
   const [hasErrorOnImageLoad, setHasErrorOnImageLoad] = useState<boolean>(false);
   const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
 
+  const [editProfileRequest, { data, isSuccess, error: editError }] = userApi.useEditUserMutation();
+
+  const dispatch = useAppDispatch();
+  const editErrorResponse = editError as {
+    status: number;
+    data: { errors: { username?: string; email?: string } };
+  };
+
   useEffect(() => {
     if (username && email)
       reset({
@@ -41,6 +52,42 @@ function ProfilePage() {
         avatar: image || '',
       });
   }, [username, email, image]);
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      const {
+        username: usernameResponse,
+        email: emailResponse,
+        token: tokenResponse,
+        image: imageResponse,
+      } = data.user;
+
+      toast.success('Users data has updated successfully!');
+      dispatch(
+        setUser({
+          username: usernameResponse,
+          email: emailResponse,
+          token: tokenResponse,
+          image: imageResponse,
+        }),
+      );
+      reset({
+        username: usernameResponse,
+        email: emailResponse,
+        password: '',
+        avatar: imageResponse || '',
+      });
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (editErrorResponse) {
+      const { username: usernameError, email: emailError } = editErrorResponse.data.errors;
+
+      if (usernameError) toast.error(`Username ${usernameError}`);
+      if (emailError) toast.error(`Email ${emailError}`);
+    }
+  }, [editErrorResponse]);
 
   const isFormDataEqualsStoreUserData =
     watch().username === username &&
@@ -58,7 +105,28 @@ function ProfilePage() {
     }),
   };
 
-  const onSubmitHandle = () => {};
+  const onSubmitHandle = (submitedData: {
+    username: string;
+    email: string;
+    password: string;
+    avatar: string;
+  }) => {
+    const {
+      username: usernameSubmited,
+      email: emailSubmited,
+      password: passwordSubmited,
+      avatar: avatarSubmited,
+    } = submitedData;
+
+    editProfileRequest({
+      user: {
+        username: usernameSubmited,
+        email: emailSubmited,
+        password: passwordSubmited,
+        image: avatarSubmited,
+      },
+    });
+  };
 
   return (
     <div className={classNames('container', styles.flexCenter)}>
@@ -84,11 +152,14 @@ function ProfilePage() {
               },
             })}
             className={classNames({ 'form-input': true, 'form-input--error': errors.username })}
-            defaultValue={username ? username : ''}
+            defaultValue={username || ''}
           />
         </label>
         {errors?.username && (
           <p className='form-error-message'>{errors.username?.message?.toString()}</p>
+        )}
+        {editErrorResponse?.data.errors.username && (
+          <p className='form-error-message'>{`Username ${editErrorResponse?.data.errors.username}`}</p>
         )}
         <label className={styles.label}>
           Email address
@@ -98,15 +169,19 @@ function ProfilePage() {
               required: 'Email is required',
               pattern: {
                 value:
+                  // eslint-disable-next-line no-control-regex
                   /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
                 message: 'Enter correct email',
               },
             })}
             className={classNames({ 'form-input': true, 'form-input--error': errors.email })}
-            defaultValue={email ? email : ''}
+            defaultValue={email || ''}
           />
         </label>
         {errors?.email && <p className='form-error-message'>{errors.email?.message?.toString()}</p>}
+        {editErrorResponse?.data.errors.email && (
+          <p className='form-error-message'>{`Email ${editErrorResponse?.data.errors.email}`}</p>
+        )}
         <label className={styles.label}>
           New password
           <input
@@ -118,7 +193,7 @@ function ProfilePage() {
               },
               maxLength: {
                 value: 40,
-                message: 'Your password needs to contain maximum 6 characters.',
+                message: 'Your password needs to contain maximum 40 characters.',
               },
             })}
             type='password'
@@ -135,7 +210,11 @@ function ProfilePage() {
             {...avatarRegister}
             onChange={(e) => {
               avatarRegister.onChange(e);
-              setIsImageLoading(true);
+
+              if (e.currentTarget.value !== '') {
+                setHasErrorOnImageLoad(false);
+                setIsImageLoading(true);
+              }
             }}
             className={classNames({ 'form-input': true, 'form-input--error': errors.avatar })}
             defaultValue={image || ''}
@@ -153,7 +232,7 @@ function ProfilePage() {
             with a default image
           </p>
         )}
-        {watch().avatar && (
+        {watch().avatar !== '' && !errors?.avatar && (
           <img
             src={watch().avatar}
             onLoad={() => {
@@ -176,15 +255,21 @@ function ProfilePage() {
               image. Please fill in another image URL
             </p>
           )}
-        {!hasErrorOnImageLoad && !isFormDataEqualsStoreUserData && !isImageLoading && (
-          <p className={styles.imageLoadingSuccessMessage}>Image URL is correct!</p>
-        )}
-        {isImageLoading && !hasErrorOnImageLoad && <p>Image loading...</p>}
+        {!hasErrorOnImageLoad &&
+          !isFormDataEqualsStoreUserData &&
+          !isImageLoading &&
+          watch().avatar !== '' && (
+            <p className={styles.imageLoadingSuccessMessage}>Image URL is correct!</p>
+          )}
+        {isImageLoading && !hasErrorOnImageLoad && watch().avatar && <p>Image loading...</p>}
         <div className={styles.submitButton}>
           <SubmitButton
             title='Save'
             disabled={
-              !isValid || isFormDataEqualsStoreUserData || hasErrorOnImageLoad || isImageLoading
+              !isValid ||
+              (isFormDataEqualsStoreUserData && !editErrorResponse) ||
+              hasErrorOnImageLoad ||
+              isImageLoading
             }
           />
         </div>

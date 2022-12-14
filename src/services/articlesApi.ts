@@ -8,6 +8,16 @@ const articlesApi = baseApi.injectEndpoints({
         url: '/articles',
         params: { offset: (page - 1) * limit, limit },
       }),
+      providesTags: (res) =>
+        res?.articles
+          ? [
+              ...res.articles.map(({ slug }) => ({
+                type: 'Articles' as const,
+                id: slug,
+              })),
+              { type: 'Articles', id: 'LIST' },
+            ]
+          : [{ type: 'Articles', id: 'LIST' }],
     }),
     getArticle: build.query<{ article: IArticle }, { slug: string | undefined }>({
       query: ({ slug }) => ({

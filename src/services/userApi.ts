@@ -2,12 +2,13 @@
 import { getTokenFromLocalStorage } from '../utils/tokenApi';
 import baseApi from './baseApi';
 
+interface IUserResponse {
+  user: { username: string; email: string; image: string; token: string };
+}
+
 const userApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    login: build.mutation<
-      { user: { username: string; email: string; token: string; image: string } },
-      { user: { email: string; password: string } }
-    >({
+    login: build.mutation<IUserResponse, { user: { email: string; password: string } }>({
       query: (body) => ({
         url: '/users/login',
         method: 'POST',
@@ -32,24 +33,23 @@ const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
-    getUser: build.query<
-      { user: { username: string; email: string; token: string; image: string } },
-      null
-    >({
+    getUser: build.query<IUserResponse, null>({
       query: () => ({
         url: '/user',
         headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
       }),
     }),
     editUser: build.mutation<
-      { user: { username: string; email: string; token: string; image: string } },
-      { user: { username: string; email: string; image: string } }
+      IUserResponse,
+      { user: { username: string; email: string; image: string; password: string } }
     >({
       query: (body) => ({
         url: '/user',
         method: 'PUT',
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
         body,
       }),
+      invalidatesTags: [{ type: 'Articles', id: 'LIST' }],
     }),
   }),
 });

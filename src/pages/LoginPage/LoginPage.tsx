@@ -11,16 +11,21 @@ import SubmitButton from '../../components/SubmitButton';
 import styles from './LoginPage.module.scss';
 import userApi from '../../services/userApi';
 import { useAppDispatch } from '../../redux/store';
-import { login } from '../../redux/reducers/userSlice';
+import { setUser } from '../../redux/reducers/userSlice';
 import '../../index.scss';
 import { setTokenToLocalStorage } from '../../utils/tokenApi';
+
+interface IFormInputs {
+  email: string;
+  password: string;
+}
 
 function LoginPage() {
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({ mode: 'all' });
+  } = useForm<IFormInputs>({ mode: 'all' });
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -32,7 +37,7 @@ function LoginPage() {
       const { username, email, token, image } = data.user;
 
       toast.success('You have logged in successfully');
-      dispatch(login({ username, email, token, image }));
+      dispatch(setUser({ username, email, token, image }));
       setTokenToLocalStorage(token);
       navigate('/');
     }
@@ -44,8 +49,7 @@ function LoginPage() {
     }
   }, [authError]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onSubmitHandle = (submitedData: any) => {
+  const onSubmitHandle = (submitedData: IFormInputs) => {
     const { email, password } = submitedData;
     loginRequest({ user: { email, password } });
   };

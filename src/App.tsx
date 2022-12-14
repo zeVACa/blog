@@ -14,7 +14,7 @@ import PrivateRoutes from './utils/PrivateRoutes';
 import userApi from './services/userApi';
 import { getTokenFromLocalStorage } from './utils/tokenApi';
 import { useAppDispatch } from './redux/store';
-import { login } from './redux/reducers/userSlice';
+import { setUser } from './redux/reducers/userSlice';
 
 function App() {
   const [getUser] = userApi.useLazyGetUserQuery();
@@ -26,7 +26,7 @@ function App() {
         .unwrap()
         .then((data) => {
           const { username, email, token, image } = data.user;
-          if (data) dispatch(login({ username, email, token, image: image || null }));
+          if (data) dispatch(setUser({ username, email, token, image: image || null }));
         });
     }
   }, []);
