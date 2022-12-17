@@ -28,7 +28,6 @@ function Header() {
               <Link className={styles.profileName} to='/profile'>
                 {username}
                 <img
-                  // src={image || 'https://static.productionready.io/images/smiley-cyrus.jpg'}
                   src={
                     !hasErrorOnImageLoad && image
                       ? image

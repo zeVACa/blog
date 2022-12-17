@@ -1,3 +1,17 @@
-.wrapper {
-  width: 100%;
+@import '../../variables.scss';
+
+.article {
+  padding: 35px 19px 40px;
+  background-color: #fff;
+  margin-top: 24px;
+  border-radius: 5px;
+  box-shadow: $card-shadow;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  // margin-top: 20px;
 }
