@@ -13,6 +13,13 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import userApi from '../../services/userApi';
 import { setUser } from '../../redux/reducers/userSlice';
 
+interface IFormInputs {
+  username: string;
+  email: string;
+  password: string;
+  avatar: string;
+}
+
 function ProfilePage() {
   const { username, email, image } = useAppSelector((selector) => selector.user);
 
@@ -22,7 +29,7 @@ function ProfilePage() {
     handleSubmit,
     reset,
     watch,
-  } = useForm({
+  } = useForm<IFormInputs>({
     mode: 'all',
     defaultValues: {
       username: '',
@@ -105,12 +112,7 @@ function ProfilePage() {
     }),
   };
 
-  const onSubmitHandle = (submitedData: {
-    username: string;
-    email: string;
-    password: string;
-    avatar: string;
-  }) => {
+  const onSubmitHandle = (submitedData: IFormInputs) => {
     const {
       username: usernameSubmited,
       email: emailSubmited,

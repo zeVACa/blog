@@ -20,6 +20,10 @@
   display: inline-block;
 }
 
+.tagErrorMessage {
+  max-width: 320px;
+}
+
 .tagButton {
   height: 43px;
   padding: 0 20px;
@@ -38,6 +42,7 @@
 .deleteTagButton:hover {
   color: darken($color: $color-error, $amount: 12);
   border-color: darken($color: $color-error, $amount: 12);
+  outline: 1px solid darken($color: $color-error, $amount: 12);
 }
 
 .addTagButton {
@@ -48,6 +53,7 @@
 .addTagButton:hover {
   color: darken($color: $color-primary, $amount: 12);
   border-color: darken($color: $color-primary, $amount: 12);
+  outline: 1px solid darken($color: $color-primary, $amount: 12);
 }
 
 .submitButton {
