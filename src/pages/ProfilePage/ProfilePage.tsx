@@ -142,7 +142,7 @@ function ProfilePage() {
               required: 'Username is required',
               pattern: {
                 value: /^[a-z][a-z0-9]*$/,
-                message: 'You can only use lowercase English letters and numbers',
+                message: 'You can use only lowercase English letters and numbers',
               },
               minLength: {
                 value: 3,

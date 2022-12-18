@@ -23,7 +23,7 @@ function CreateArticleForm() {
     control,
     getValues,
   } = useForm<IFormInputs>({
-    mode: 'all',
+    mode: 'onSubmit',
     defaultValues: {
       tagList: [],
     },
@@ -75,7 +75,7 @@ function CreateArticleForm() {
         <div>
           <input
             type='button'
-            value='Add tag'
+            value='Add tags'
             className={classNames(styles.tagButton, styles.addTagButton)}
             onClick={() => append({ name: '' })}
           />
@@ -91,6 +91,11 @@ function CreateArticleForm() {
               {...register(`tagList.${rowIndex}.name`, {
                 required:
                   "Tag is required! If you don't want to provide the Tag, please delete the tag before sending form.",
+                pattern: {
+                  value: /^[a-zA-Z0-9]+$/,
+                  message:
+                    'You can use only english letters and digits without spaces and other symbols',
+                },
                 validate: (tagInputValue) =>
                   !getValues()
                     .tagList.map((tagObject: { name: string }) => tagObject.name)
