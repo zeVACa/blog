@@ -26,3 +26,12 @@ export interface IArticles {
   articles: IArticle[];
   articlesCount: number;
 }
+
+export interface IArticleCreated {
+  article: {
+    title: string;
+    description: string;
+    body: string;
+    tagList: string[];
+  };
+}

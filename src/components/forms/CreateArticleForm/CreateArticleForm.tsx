@@ -1,10 +1,11 @@
-/* eslint-disable */
-
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { useForm, useFieldArray } from 'react-hook-form';
+import classNames from 'classnames';
+import { IArticleCreated } from '../../../types.d';
 import styles from './CreateArticleForm.module.scss';
 
 import '../../../index.scss';
-import classNames from 'classnames';
 
 interface IFormInputs {
   title: string;
@@ -13,13 +14,16 @@ interface IFormInputs {
   tagList: { name: string }[];
 }
 
-function CreateArticleForm() {
+interface IProps {
+  // eslint-disable-next-line no-unused-vars
+  onSubmitArticleHandler: (article: IArticleCreated) => void;
+}
+
+function CreateArticleForm({ onSubmitArticleHandler }: IProps) {
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
-    reset,
-    watch,
     control,
     getValues,
   } = useForm<IFormInputs>({
@@ -32,7 +36,11 @@ function CreateArticleForm() {
   const { fields, append, remove } = useFieldArray({ name: 'tagList', control });
 
   const onSubmitHandle = (submitedData: IFormInputs) => {
-    console.log('submitedData', submitedData);
+    const { title, description, text, tagList } = submitedData;
+
+    onSubmitArticleHandler({
+      article: { title, description, body: text, tagList: tagList.map((tag) => tag.name) },
+    });
   };
 
   return (
@@ -66,7 +74,7 @@ function CreateArticleForm() {
           })}
           {...register('text', { required: 'Text is required' })}
           placeholder='Text'
-        ></textarea>
+        />
       </label>
       <p className='form-error-message'>{errors.text?.message?.toString()}</p>
       <label className={styles.label}>Tags</label>

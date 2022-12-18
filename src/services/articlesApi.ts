@@ -1,4 +1,5 @@
-import { IArticle, IArticles } from '../types.d';
+import { IArticle, IArticles, IArticleCreated } from '../types.d';
+import { getTokenFromLocalStorage } from '../utils/tokenApi';
 import baseApi from './baseApi';
 
 const articlesApi = baseApi.injectEndpoints({
@@ -23,6 +24,15 @@ const articlesApi = baseApi.injectEndpoints({
       query: ({ slug }) => ({
         url: `articles/${slug}`,
       }),
+    }),
+    createArticle: build.mutation<{ article: IArticle }, IArticleCreated>({
+      query: (body) => ({
+        method: 'post',
+        url: '/articles',
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
+        body,
+      }),
+      invalidatesTags: [{ type: 'Articles', id: 'LIST' }],
     }),
   }),
 });
