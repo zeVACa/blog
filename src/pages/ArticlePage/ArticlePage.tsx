@@ -20,7 +20,7 @@ function ArticlePage() {
           <ArticleHeader
             title={article.title}
             tagList={article.tagList}
-            authorImage={article.author.username}
+            authorImage={article.author.image}
             slug={article.slug}
             authorUsername={article.author.username}
             createdAt={article.createdAt}
