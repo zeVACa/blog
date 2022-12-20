@@ -1,0 +1,35 @@
+@import '../../variables.scss';
+
+.article {
+  padding: 17px 19px;
+  background-color: #fff;
+  margin-top: 24px;
+  border-radius: 5px;
+  box-shadow: $card-shadow;
+  margin-bottom: 30px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+}
+
+.spinnerWrapper {
+  padding-top: 17px;
+}
+
+.accessDeniedMessage {
+  max-width: 400px;
+  margin: 150px auto;
+  //   display: flex;
+  //   align-items: center;
+  padding: 20px 20px 0;
+  font-size: 24px;
+
+  border-radius: 5px;
+  border: 1px solid $color-error;
+  color: $color-error;
+  background: #fff;
+}

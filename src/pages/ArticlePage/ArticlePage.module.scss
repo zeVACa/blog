@@ -6,15 +6,55 @@
   margin-top: 24px;
   border-radius: 5px;
   box-shadow: $card-shadow;
+  margin-bottom: 30px;
 }
 
-.shortDescription {
-  color: rgba(0, 0, 0, 0.5);
+.descriptionButtonsRow {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
   margin-bottom: 25px;
   margin-top: 16px;
 }
 
-.fullDescriptionBody ol {
+.shortDescription {
+  color: rgba(0, 0, 0, 0.5);
+  flex-grow: 0;
+  width: 80%;
+}
+
+.button {
+  display: inline-block;
+  border-radius: 5px;
+  background: transparent;
+  padding: 5px 19px;
+  cursor: pointer;
+  border: 1px solid #000;
+}
+
+.deleteButton {
+  margin-right: 12px;
+  border-color: $color-error;
+  color: $color-error;
+}
+
+.deleteButton:hover {
+  border-color: darken($color: $color-error, $amount: 11);
+  color: darken($color: $color-error, $amount: 11);
+}
+
+.editButton {
+  border-color: $color-success;
+  color: $color-success;
+}
+
+.editButton:hover {
+  border-color: darken($color: $color-success, $amount: 10);
+  color: darken($color: $color-success, $amount: 10);
+}
+
+.fullDescriptionBody ol,
+.fullDescriptionBody ul {
   padding-left: 30px;
 }
 

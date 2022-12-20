@@ -15,6 +15,7 @@ import userApi from './services/userApi';
 import { getTokenFromLocalStorage } from './utils/tokenApi';
 import { useAppDispatch } from './redux/store';
 import { setUser } from './redux/reducers/userSlice';
+import EditArticlePage from './pages/EditArticlePage';
 
 function App() {
   const [getUser] = userApi.useLazyGetUserQuery();
@@ -50,10 +51,11 @@ function App() {
         <Route element={<PrivateRoutes />}>
           <Route path='/create-article' element={<CreateArticlePage />} />
           <Route path='/profile' element={<ProfilePage />} />
+          <Route path='/articles/:slug/edit' element={<EditArticlePage />} />
         </Route>
         <Route path='/' element={<ArticlesPage />} />
         <Route path='/articles/' element={<ArticlesPage />} />
-        <Route path='/articles/:id' element={<ArticlePage />} />
+        <Route path='/articles/:slug' element={<ArticlePage />} />
         <Route path='/sign-in' element={<LoginPage />} />
         <Route path='/sign-up' element={<RegisterPage />} />
         <Route path='*' element={<NotFoundPage />} />

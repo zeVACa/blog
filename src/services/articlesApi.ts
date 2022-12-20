@@ -34,6 +34,22 @@ const articlesApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Articles', id: 'LIST' }],
     }),
+    deleteArticle: build.mutation<void, string>({
+      query: (slug) => ({
+        method: 'delete',
+        url: `/articles/${slug}`,
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
+      }),
+      invalidatesTags: [{ type: 'Articles', id: 'LIST' }],
+    }),
+    editArticle: build.mutation<void, string>({
+      query: (slug) => ({
+        method: 'put',
+        url: `/articles/${slug}`,
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
+      }),
+      invalidatesTags: [{ type: 'Articles', id: 'LIST' }],
+    }),
   }),
 });
 

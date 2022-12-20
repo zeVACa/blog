@@ -40,9 +40,9 @@
 }
 
 .deleteTagButton:hover {
-  color: darken($color: $color-error, $amount: 12);
-  border-color: darken($color: $color-error, $amount: 12);
-  outline: 1px solid darken($color: $color-error, $amount: 12);
+  color: $color-error;
+  outline: 1px solid $color-error;
+  font-weight: 600;
 }
 
 .addTagButton {
@@ -51,9 +51,9 @@
 }
 
 .addTagButton:hover {
-  color: darken($color: $color-primary, $amount: 12);
-  border-color: darken($color: $color-primary, $amount: 12);
-  outline: 1px solid darken($color: $color-primary, $amount: 12);
+  color: $color-primary;
+  outline: 1px solid $color-primary;
+  font-weight: 600;
 }
 
 .submitButton {

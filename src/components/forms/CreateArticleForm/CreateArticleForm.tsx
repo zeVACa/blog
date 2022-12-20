@@ -17,9 +17,15 @@ interface IFormInputs {
 interface IProps {
   // eslint-disable-next-line no-unused-vars
   onSubmitArticleHandler: (article: IArticleCreated) => void;
+  fetchedArticleData?: {
+    title: string;
+    description: string;
+    text: string;
+    tagList: { name: string }[];
+  };
 }
 
-function CreateArticleForm({ onSubmitArticleHandler }: IProps) {
+function CreateArticleForm({ onSubmitArticleHandler, fetchedArticleData }: IProps) {
   const {
     register,
     formState: { errors },
@@ -29,7 +35,10 @@ function CreateArticleForm({ onSubmitArticleHandler }: IProps) {
   } = useForm<IFormInputs>({
     mode: 'onSubmit',
     defaultValues: {
-      tagList: [],
+      title: fetchedArticleData?.title || '',
+      description: fetchedArticleData?.description || '',
+      text: fetchedArticleData?.text || '',
+      tagList: fetchedArticleData?.tagList || [],
     },
   });
 
@@ -146,5 +155,9 @@ function CreateArticleForm({ onSubmitArticleHandler }: IProps) {
     </form>
   );
 }
+
+CreateArticleForm.defaultProps = {
+  fetchedArticleData: null,
+};
 
 export default CreateArticleForm;
