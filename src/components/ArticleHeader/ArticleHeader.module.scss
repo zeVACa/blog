@@ -8,6 +8,7 @@
 .flexRow {
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
 }
 
 .tagsArea {
@@ -22,6 +23,7 @@
   padding: 1px 5px;
   margin-right: 8px;
   margin-bottom: 8px;
+  overflow-wrap: anywhere;
 }
 
 .userInfo {
@@ -57,4 +59,9 @@
   line-height: 28px;
   margin-right: 13px;
   overflow-wrap: anywhere;
+  max-width: 85%;
+}
+
+.likesWrapper {
+  padding-top: 2px;
 }

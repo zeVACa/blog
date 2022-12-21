@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styles from './Header.module.scss';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
@@ -11,11 +11,13 @@ function Header() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const [searchParams] = useSearchParams();
+
   const [hasErrorOnImageLoad, setHasErrorOnImageLoad] = useState(false);
 
   return (
     <div className={styles.header}>
-      <Link to='/' className={styles.brand}>
+      <Link to={`/articles?page=${searchParams.get('page') || 1}`} className={styles.brand}>
         Realworld Blog
       </Link>
       <div className={styles.right}>

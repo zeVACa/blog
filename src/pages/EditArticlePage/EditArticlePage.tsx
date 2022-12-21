@@ -51,7 +51,7 @@ function EditArticlePage() {
 
   if (username !== fetchedArticleData.article.author.username) {
     return (
-      <div className={styles.accessDeniedMessage}>
+      <div className='full-page-error-message'>
         <p>Sorry, but you cannot edit other user&apos;s articles!</p>
       </div>
     );

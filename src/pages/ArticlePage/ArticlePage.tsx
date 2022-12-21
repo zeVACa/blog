@@ -10,10 +10,15 @@ import ArticleHeader from '../../components/ArticleHeader';
 import Spinner from '../../components/Spinner';
 import articlesApi from '../../services/articlesApi';
 import { useAppSelector } from '../../redux/store';
+import '../../index.scss';
 
 function ArticlePage() {
   const { slug } = useParams();
-  const { data, isLoading } = articlesApi.useGetArticleQuery({ slug });
+  const {
+    data,
+    isLoading,
+    isError: isArticleNotAvailable,
+  } = articlesApi.useGetArticleQuery({ slug });
   const navigate = useNavigate();
   const [deleteArticleRequest, { isSuccess, error }] = articlesApi.useDeleteArticleMutation();
 
@@ -37,6 +42,14 @@ function ArticlePage() {
   const onDeleteArticle = () => {
     if (slug) deleteArticleRequest(slug);
   };
+
+  if (isArticleNotAvailable) {
+    return (
+      <div className='full-page-error-message'>
+        <p>Internal server error. Article is not available anymore!</p>
+      </div>
+    );
+  }
 
   return (
     <div className='container'>

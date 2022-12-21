@@ -41,7 +41,7 @@ function Likes({ likesCount, isLiked, slug }: IProps) {
 
   return (
     <div className={styles.likes}>
-      <label htmlFor={`likes-${slug}`}>
+      <label htmlFor={`likes-${slug}`} className={styles.iconWrapper}>
         <input
           type='checkbox'
           className={styles.realCheckbox}

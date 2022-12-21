@@ -64,3 +64,15 @@
   top: auto;
   overflow: hidden;
 }
+
+.full-page-error-message {
+  max-width: 400px;
+  margin: 150px auto;
+  padding: 20px 20px 0;
+  font-size: 24px;
+
+  border-radius: 5px;
+  border: 1px solid $color-error;
+  color: $color-error;
+  background: #fff;
+}
