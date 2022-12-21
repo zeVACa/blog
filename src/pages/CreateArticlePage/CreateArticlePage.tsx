@@ -1,10 +1,9 @@
-/* eslint-disable */
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import CreateArticleForm from '../../components/forms/CreateArticleForm';
 import articlesApi from '../../services/articlesApi';
-import { IArticleCreated } from '../../types';
+import { IArticleCreated } from '../../types.d';
 import styles from './CreateArticlePage.module.scss';
 
 function CreateArticlePage() {

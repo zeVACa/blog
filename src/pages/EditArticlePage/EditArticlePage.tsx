@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -8,7 +6,7 @@ import Spinner from '../../components/Spinner';
 import '../../index.scss';
 import { useAppSelector } from '../../redux/store';
 import articlesApi from '../../services/articlesApi';
-import { IArticleCreated } from '../../types';
+import { IArticleCreated } from '../../types.d';
 import styles from './EditArticlePage.module.scss';
 
 function EditArticlePage() {
@@ -22,7 +20,7 @@ function EditArticlePage() {
   const [
     editArticleRequest,
     { data, isSuccess: isArticleCreatedSuccessfully, error: editArticleError },
-  ] = articlesApi.useCreateArticleMutation();
+  ] = articlesApi.useEditArticleMutation();
 
   const navigate = useNavigate();
 
@@ -40,7 +38,7 @@ function EditArticlePage() {
   }, [editArticleError]);
 
   const onSubmitArticleHandler = (article: IArticleCreated) => {
-    editArticleRequest(article);
+    if (slug) editArticleRequest({ body: article, slug });
   };
 
   if (isArticleLoading || !fetchedArticleData) {
@@ -54,7 +52,7 @@ function EditArticlePage() {
   if (username !== fetchedArticleData.article.author.username) {
     return (
       <div className={styles.accessDeniedMessage}>
-        <p>Sorry, but you cannot edit other users' articles!</p>
+        <p>Sorry, but you cannot edit other user&apos;s articles!</p>
       </div>
     );
   }

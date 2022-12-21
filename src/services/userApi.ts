@@ -14,7 +14,7 @@ const userApi = baseApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: [{ type: 'Articles', id: 'LIST' }, 'User'],
     }),
     register: build.mutation<
       { user: { username: string; email: string; token: string } },
@@ -31,7 +31,7 @@ const userApi = baseApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: [{ type: 'Articles', id: 'LIST' }, 'User'],
     }),
     getUser: build.query<IUserResponse, null>({
       query: () => ({

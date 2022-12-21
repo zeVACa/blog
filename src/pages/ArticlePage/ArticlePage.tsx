@@ -1,17 +1,15 @@
-/* eslint-disable */
-
 import { useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
 import { toast } from 'react-toastify';
 import classNames from 'classnames';
+import { Popconfirm } from 'antd';
 import styles from './ArticlePage.module.scss';
 import ArticleHeader from '../../components/ArticleHeader';
 import Spinner from '../../components/Spinner';
 import articlesApi from '../../services/articlesApi';
 import { useAppSelector } from '../../redux/store';
-import { Popconfirm } from 'antd';
 
 function ArticlePage() {
   const { slug } = useParams();
@@ -25,8 +23,6 @@ function ArticlePage() {
 
   useEffect(() => {
     if (isSuccess && data) {
-      console.log('isSuccess', isSuccess);
-      console.log('data', data);
       toast.success('Article has deleted successfully!');
       navigate('/');
     }
@@ -54,6 +50,8 @@ function ArticlePage() {
             slug={article.slug}
             authorUsername={article.author.username}
             createdAt={article.createdAt}
+            likesCount={article.favoritesCount}
+            isLiked={article.favorited}
           />
           <div className={styles.descriptionButtonsRow}>
             <p className={styles.shortDescription}>{article.description}</p>

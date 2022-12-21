@@ -13,9 +13,20 @@ interface IProps {
   slug: string;
   authorUsername: string;
   createdAt: string;
+  likesCount: number;
+  isLiked: boolean;
 }
 
-function ArticleHeader({ title, tagList, authorImage, slug, authorUsername, createdAt }: IProps) {
+function ArticleHeader({
+  title,
+  tagList,
+  authorImage,
+  slug,
+  authorUsername,
+  createdAt,
+  likesCount,
+  isLiked,
+}: IProps) {
   const [hasErrorOnImageLoad, setHasErrorOnImageLoad] = useState<boolean>(false);
 
   return (
@@ -25,7 +36,7 @@ function ArticleHeader({ title, tagList, authorImage, slug, authorUsername, crea
           <Link className={styles.title} to={`/articles/${slug}`}>
             {title.length > 140 ? `${title.slice(0, 140)}...` : title}
           </Link>
-          <Likes />
+          <Likes likesCount={likesCount} isLiked={isLiked} slug={slug} />
         </div>
         <div className={styles.tagsArea}>
           {tagList

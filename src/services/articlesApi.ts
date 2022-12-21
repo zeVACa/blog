@@ -6,6 +6,7 @@ const articlesApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getArticles: build.query<IArticles, { page: number; limit: number }>({
       query: ({ page, limit }) => ({
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
         url: '/articles',
         params: { offset: (page - 1) * limit, limit },
       }),
@@ -22,33 +23,52 @@ const articlesApi = baseApi.injectEndpoints({
     }),
     getArticle: build.query<{ article: IArticle }, { slug: string | undefined }>({
       query: ({ slug }) => ({
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
         url: `articles/${slug}`,
       }),
+      providesTags: ['ArticleDetails'],
     }),
     createArticle: build.mutation<{ article: IArticle }, IArticleCreated>({
       query: (body) => ({
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
         method: 'post',
         url: '/articles',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Articles', id: 'LIST' }],
+    }),
+    editArticle: build.mutation<{ article: IArticle }, { body: IArticleCreated; slug: string }>({
+      query: ({ body, slug }) => ({
         headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
+        method: 'put',
+        url: `/articles/${slug}`,
         body,
       }),
       invalidatesTags: [{ type: 'Articles', id: 'LIST' }],
     }),
     deleteArticle: build.mutation<void, string>({
       query: (slug) => ({
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
         method: 'delete',
         url: `/articles/${slug}`,
-        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
       }),
       invalidatesTags: [{ type: 'Articles', id: 'LIST' }],
     }),
-    editArticle: build.mutation<void, string>({
+    likeArticle: build.mutation<{ article: IArticle }, string>({
       query: (slug) => ({
-        method: 'put',
-        url: `/articles/${slug}`,
         headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
+        method: 'post',
+        url: `/articles/${slug}/favorite`,
       }),
-      invalidatesTags: [{ type: 'Articles', id: 'LIST' }],
+      invalidatesTags: [{ type: 'Articles', id: 'LIST' }, 'ArticleDetails'],
+    }),
+    removeLikeFromArticle: build.mutation<{ article: IArticle }, string>({
+      query: (slug) => ({
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
+        method: 'delete',
+        url: `/articles/${slug}/favorite`,
+      }),
+      invalidatesTags: [{ type: 'Articles', id: 'LIST' }, 'ArticleDetails'],
     }),
   }),
 });

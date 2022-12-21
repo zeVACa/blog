@@ -16,6 +16,8 @@ function ArticleCard({ article }: IProps) {
         slug={article.slug}
         authorUsername={article.author.username}
         createdAt={article.createdAt}
+        likesCount={article.favoritesCount}
+        isLiked={article.favorited}
       />
       <p className={styles.description}>
         {article.description.length > 300

@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import { useForm, useFieldArray } from 'react-hook-form';
 import classNames from 'classnames';
 import { IArticleCreated } from '../../../types.d';

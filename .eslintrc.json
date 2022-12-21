@@ -18,6 +18,9 @@
   },
   "plugins": ["react", "@typescript-eslint", "react-hooks", "@typescript-eslint", "prettier"],
   "rules": {
+    "react/jsx-props-no-spreading": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "no-control-regex": "off",
     "react/react-in-jsx-scope": "off",
     "import/extensions": [
       "error",

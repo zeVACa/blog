@@ -1,7 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-control-regex */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import classNames from 'classnames';
