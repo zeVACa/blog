@@ -44,7 +44,7 @@ const articlesApi = baseApi.injectEndpoints({
         url: `/articles/${slug}`,
         body,
       }),
-      invalidatesTags: [{ type: 'Articles', id: 'LIST' }],
+      invalidatesTags: [{ type: 'Articles', id: 'LIST' }, 'ArticleDetails'],
     }),
     deleteArticle: build.mutation<void, string>({
       query: (slug) => ({
@@ -52,7 +52,7 @@ const articlesApi = baseApi.injectEndpoints({
         method: 'delete',
         url: `/articles/${slug}`,
       }),
-      invalidatesTags: [{ type: 'Articles', id: 'LIST' }],
+      invalidatesTags: [{ type: 'Articles', id: 'LIST' }, 'ArticleDetails'],
     }),
     likeArticle: build.mutation<{ article: IArticle }, string>({
       query: (slug) => ({

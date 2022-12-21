@@ -58,7 +58,10 @@ function CreateArticleForm({ onSubmitArticleHandler, fetchedArticleData }: IProp
           type='text'
           placeholder='Title'
           className={classNames({ 'form-input': true, 'form-input--error': errors.title })}
-          {...register('title', { required: 'Title is required' })}
+          {...register('title', {
+            required: 'Title is required',
+            maxLength: { value: 1000, message: 'Maximum title length 1000 characters' },
+          })}
         />
       </label>
       <p className='form-error-message'>{errors.title?.message?.toString()}</p>

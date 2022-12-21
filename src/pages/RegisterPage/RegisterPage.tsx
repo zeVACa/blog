@@ -9,6 +9,7 @@ import { useAppDispatch } from '../../redux/store';
 import userApi from '../../services/userApi';
 import styles from './RegisterPage.module.scss';
 import '../../index.scss';
+import { setTokenToLocalStorage } from '../../utils/tokenApi';
 
 interface IFormInputs {
   username: string;
@@ -42,6 +43,7 @@ function RegisterPage() {
 
       toast.success('You have logged in successfully');
       dispatch(setUser({ username, email, token, image: null }));
+      setTokenToLocalStorage(token);
       navigate('/');
     }
   }, [isSuccess]);

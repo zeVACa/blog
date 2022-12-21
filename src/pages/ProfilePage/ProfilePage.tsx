@@ -21,7 +21,7 @@ function ProfilePage() {
 
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
     reset,
     watch,
@@ -131,7 +131,7 @@ function ProfilePage() {
       <form action='' className={styles.form} onSubmit={handleSubmit(onSubmitHandle)}>
         <h4 className={styles.title}>Edit Profile</h4>
         <label className={styles.label}>
-          Username
+          Username <span className={styles.requiredStart}>*</span>
           <input
             placeholder='Username'
             {...register('username', {
@@ -160,7 +160,7 @@ function ProfilePage() {
           <p className='form-error-message'>{`Username ${editErrorResponse?.data.errors.username}`}</p>
         )}
         <label className={styles.label}>
-          Email address
+          Email address <span className={styles.requiredStart}>*</span>
           <input
             placeholder='Email address'
             {...register('email', {
@@ -180,10 +180,11 @@ function ProfilePage() {
           <p className='form-error-message'>{`Email ${editErrorResponse?.data.errors.email}`}</p>
         )}
         <label className={styles.label}>
-          New password
+          New password <span className={styles.requiredStart}>*</span>
           <input
             placeholder='New password'
             {...register('password', {
+              required: 'New password is required',
               minLength: {
                 value: 6,
                 message: 'Your password needs to contain minimum 6 characters.',
@@ -261,15 +262,7 @@ function ProfilePage() {
           )}
         {isImageLoading && !hasErrorOnImageLoad && watch().avatar && <p>Image loading...</p>}
         <div className={styles.submitButton}>
-          <SubmitButton
-            title='Save'
-            disabled={
-              !isValid ||
-              (isFormDataEqualsStoreUserData && !editErrorResponse) ||
-              hasErrorOnImageLoad ||
-              isImageLoading
-            }
-          />
+          <SubmitButton title='Save' />
         </div>
       </form>
     </div>
