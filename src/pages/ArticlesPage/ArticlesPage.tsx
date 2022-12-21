@@ -1,5 +1,8 @@
-import { useState } from 'react';
+/* eslint-disable */
+
+import { useState, useEffect } from 'react';
 import { Pagination } from 'antd';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import styles from './ArticlesPage.module.scss';
 import ArticleCard from '../../components/ArticleCard';
 import 'antd/dist/antd.min.css';
@@ -8,12 +11,20 @@ import { IArticle } from '../../types.d';
 import Spinner from '../../components/Spinner/Spinner';
 
 function ArticlesPage() {
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [page, setPage] = useState<number>(Number(searchParams.get('page')) || 1);
   const articlesLimit = 5;
   const { data, isLoading, isError } = articlesApi.useGetArticlesQuery({
     page,
     limit: articlesLimit,
   });
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate(`/articles?page=${page}`);
+  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -40,6 +51,13 @@ function ArticlesPage() {
                   total={data?.articlesCount}
                   onChange={(newPageNumber) => {
                     setPage(newPageNumber);
+                    // searchParams.set('page', String(page + 1));
+
+                    const params = new URLSearchParams({
+                      page: newPageNumber,
+                    } as any);
+
+                    setSearchParams(params);
                   }}
                 />
               </div>

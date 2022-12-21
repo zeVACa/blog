@@ -54,7 +54,7 @@ function App() {
           <Route path='/articles/:slug/edit' element={<EditArticlePage />} />
         </Route>
         <Route path='/' element={<ArticlesPage />} />
-        <Route path='/articles/' element={<ArticlesPage />} />
+        <Route path='/articles' element={<ArticlesPage />} />
         <Route path='/articles/:slug' element={<ArticlePage />} />
         <Route path='/sign-in' element={<LoginPage />} />
         <Route path='/sign-up' element={<RegisterPage />} />
