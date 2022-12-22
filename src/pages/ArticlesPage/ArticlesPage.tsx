@@ -52,7 +52,6 @@ function ArticlesPage() {
                   total={data?.articlesCount}
                   onChange={(newPageNumber) => {
                     setPage(newPageNumber);
-                    // searchParams.set('page', String(page + 1));
 
                     const params = new URLSearchParams({
                       page: newPageNumber,
