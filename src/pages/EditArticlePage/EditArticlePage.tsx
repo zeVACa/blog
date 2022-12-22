@@ -5,6 +5,7 @@ import CreateArticleForm from '../../components/forms/CreateArticleForm';
 import Spinner from '../../components/Spinner';
 import '../../index.scss';
 import { useAppSelector } from '../../redux/store';
+import ERoutes from '../../routes';
 import articlesApi from '../../services/articlesApi';
 import { IArticleCreated } from '../../types.d';
 import styles from './EditArticlePage.module.scss';
@@ -27,7 +28,7 @@ function EditArticlePage() {
   useEffect(() => {
     if (isArticleCreatedSuccessfully && data) {
       toast.success('Article has edited successfully!');
-      navigate('/');
+      navigate(ERoutes.HOME);
     }
   }, [isArticleCreatedSuccessfully]);
 

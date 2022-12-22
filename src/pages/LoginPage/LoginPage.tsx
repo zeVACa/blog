@@ -10,6 +10,7 @@ import { useAppDispatch } from '../../redux/store';
 import { setUser } from '../../redux/reducers/userSlice';
 import '../../index.scss';
 import { setTokenToLocalStorage } from '../../utils/tokenApi';
+import ERoutes from '../../routes';
 
 interface IFormInputs {
   email: string;
@@ -35,7 +36,7 @@ function LoginPage() {
       toast.success('You have logged in successfully');
       dispatch(setUser({ username, email, token, image }));
       setTokenToLocalStorage(token);
-      navigate('/');
+      navigate(ERoutes.HOME);
     }
   }, [isSuccess]);
 
@@ -90,7 +91,7 @@ function LoginPage() {
           <SubmitButton title='Log in' />
         </div>
         <p className={styles.dontHaveAccount}>
-          Don’t have an account? <Link to='/sign-up'>Sign Up</Link>.
+          Don’t have an account? <Link to={ERoutes.SIGN_UP}>Sign Up</Link>.
         </p>
       </form>
     </div>

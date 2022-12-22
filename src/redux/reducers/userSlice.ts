@@ -5,7 +5,7 @@ import { getTokenFromLocalStorage } from '../../utils/tokenApi';
 const initialState: IUser = {
   username: null,
   email: null,
-  token: getTokenFromLocalStorage() ? getTokenFromLocalStorage() : null,
+  token: getTokenFromLocalStorage() || null,
   image: null,
 };
 

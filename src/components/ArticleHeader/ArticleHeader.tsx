@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { format } from 'date-fns';
-import { v4 as uuid } from 'uuid';
 
 import styles from './ArticleHeader.module.scss';
 import Likes from '../Likes';
+import ERoutes from '../../routes';
 
 interface IProps {
   title: string;
@@ -36,8 +36,8 @@ function ArticleHeader({
     <div className={styles.header}>
       <div>
         <div className={styles.flexRow}>
-          <Link className={styles.title} to={`/articles/${slug}`}>
-            {!isFullArticlePage && title.length > 110 ? `${title.slice(0, 110)}...` : title}
+          <Link className={styles.title} to={`${ERoutes.ARTICLES}/${slug}`}>
+            {!isFullArticlePage && title?.length > 110 ? `${title.slice(0, 110)}...` : title}
           </Link>
           <div className={styles.likesWrapper}>
             <Likes likesCount={likesCount} isLiked={isLiked} slug={slug} />
@@ -48,11 +48,11 @@ function ArticleHeader({
             .filter((tag) => tag !== '')
             .slice(0, !isFullArticlePage ? 8 : 100)
             .map((tag) => (
-              <span className={styles.tag} key={uuid()}>
-                {!isFullArticlePage && tag.length > 20 ? `${tag.slice(0, 20)}...` : tag}
+              <span className={styles.tag} key={Math.random()}>
+                {!isFullArticlePage && tag?.length > 20 ? `${tag.slice(0, 20)}...` : tag}
               </span>
             ))}
-          {!isFullArticlePage && tagList.length > 8 && <span className={styles.tag}>...</span>}
+          {!isFullArticlePage && tagList?.length > 8 && <span className={styles.tag}>...</span>}
         </div>
       </div>
       <div className={styles.userInfo}>

@@ -11,6 +11,7 @@ import Spinner from '../../components/Spinner';
 import articlesApi from '../../services/articlesApi';
 import { useAppSelector } from '../../redux/store';
 import '../../index.scss';
+import ERoutes from '../../routes';
 
 function ArticlePage() {
   const { slug } = useParams();
@@ -29,7 +30,7 @@ function ArticlePage() {
   useEffect(() => {
     if (isSuccess && data) {
       toast.success('Article has deleted successfully!');
-      navigate('/');
+      navigate(ERoutes.HOME);
     }
   }, [isSuccess]);
 
@@ -83,7 +84,7 @@ function ArticlePage() {
                     className={classNames(styles.button, styles.deleteButton)}
                   />
                 </Popconfirm>
-                <Link to={`/articles/${slug}/edit`}>
+                <Link to={`${ERoutes.ARTICLES}/${slug}${ERoutes.EDIT}`}>
                   <input
                     type='button'
                     value='Edit'

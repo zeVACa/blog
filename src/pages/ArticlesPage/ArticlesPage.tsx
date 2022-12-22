@@ -9,6 +9,7 @@ import 'antd/dist/antd.min.css';
 import articlesApi from '../../services/articlesApi';
 import { IArticle } from '../../types.d';
 import Spinner from '../../components/Spinner/Spinner';
+import ERoutes from '../../routes';
 
 function ArticlesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -23,7 +24,7 @@ function ArticlesPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate(`/articles?page=${page}`);
+    navigate(`${ERoutes.ARTICLES}?page=${page}`);
   }, []);
 
   return (

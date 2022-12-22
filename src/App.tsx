@@ -16,6 +16,7 @@ import { getTokenFromLocalStorage } from './utils/tokenApi';
 import { useAppDispatch } from './redux/store';
 import { setUser } from './redux/reducers/userSlice';
 import EditArticlePage from './pages/EditArticlePage';
+import ERoutes from './routes';
 
 function App() {
   const [getUser] = userApi.useLazyGetUserQuery();
@@ -49,16 +50,16 @@ function App() {
       <Header />
       <Routes>
         <Route element={<PrivateRoutes />}>
-          <Route path='/create-article' element={<CreateArticlePage />} />
-          <Route path='/profile' element={<ProfilePage />} />
-          <Route path='/articles/:slug/edit' element={<EditArticlePage />} />
+          <Route path={ERoutes.CREATE_ARTICLE} element={<CreateArticlePage />} />
+          <Route path={ERoutes.PROFILE} element={<ProfilePage />} />
+          <Route path={`${ERoutes.ARTICLES}/:slug${ERoutes.EDIT}`} element={<EditArticlePage />} />
         </Route>
-        <Route path='/' element={<ArticlesPage />} />
-        <Route path='/articles' element={<ArticlesPage />} />
-        <Route path='/articles/:slug' element={<ArticlePage />} />
-        <Route path='/sign-in' element={<LoginPage />} />
-        <Route path='/sign-up' element={<RegisterPage />} />
-        <Route path='*' element={<NotFoundPage />} />
+        <Route path={ERoutes.HOME} element={<ArticlesPage />} />
+        <Route path={ERoutes.ARTICLES} element={<ArticlesPage />} />
+        <Route path={`${ERoutes.ARTICLES}/:slug`} element={<ArticlePage />} />
+        <Route path={ERoutes.SIGN_IN} element={<LoginPage />} />
+        <Route path={ERoutes.SIGN_UP} element={<RegisterPage />} />
+        <Route path={ERoutes.NOT_FOUND} element={<NotFoundPage />} />
       </Routes>
     </div>
   );

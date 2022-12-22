@@ -10,6 +10,7 @@ import userApi from '../../services/userApi';
 import styles from './RegisterPage.module.scss';
 import '../../index.scss';
 import { setTokenToLocalStorage } from '../../utils/tokenApi';
+import ERoutes from '../../routes';
 
 interface IFormInputs {
   username: string;
@@ -44,7 +45,7 @@ function RegisterPage() {
       toast.success('You have logged in successfully');
       dispatch(setUser({ username, email, token, image: null }));
       setTokenToLocalStorage(token);
-      navigate('/');
+      navigate(ERoutes.HOME);
     }
   }, [isSuccess]);
 
@@ -172,7 +173,7 @@ function RegisterPage() {
           <SubmitButton title='Create' />
         </div>
         <p className={styles.alreadyHaveAccount}>
-          Already have an account? <Link to='/sign-in'>Sign In</Link>.
+          Already have an account? <Link to={ERoutes.SIGN_IN}>Sign In</Link>.
         </p>
       </form>
     </div>
